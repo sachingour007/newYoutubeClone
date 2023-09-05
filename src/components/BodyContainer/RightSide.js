@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import ButtonList from "./ButtonList";
+import VideoContainer from "./VideoContainer";
 
 const RightSide = () => {
   return (
-    <div className='col-span-11 '>RightSide</div>
-  )
-}
+    <div className="col-span-11 ">
+      <ButtonList />
+      <VideoContainer />
+    </div>
+  );
+};
 
-export default RightSide
+export default RightSide;
