@@ -9,7 +9,7 @@ const Sidebar = ({ sidebarCategary, setSidebarCategary }) => {
   if (!isMenuOpen) return null;
 
   return (
-    <div className="col-span-4 sm:col-span-1 ">
+    <div className="col-span-4 sm:col-span-1 md:col-span-3 lg:col-span-1">
       {categories.map(({ name, icon }) => {
         return (
           <div
@@ -21,8 +21,13 @@ const Sidebar = ({ sidebarCategary, setSidebarCategary }) => {
               setSidebarCategary(name);
             }}
           >
-            <span style={{ color: "black", fontSize: "large" }}>{icon}</span>
-            <span className="pl-1 sm:pl-5">{name}</span>
+            <span
+              className="md:pl-1"
+              style={{ color: "black", fontSize: "medium" }}
+            >
+              {icon}
+            </span>
+            <span className="px-2 hidden md:inline-flex  sm:pl-5">{name}</span>
           </div>
         );
       })}

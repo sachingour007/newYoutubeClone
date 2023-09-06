@@ -1,20 +1,30 @@
-import React,{useEffect} from 'react';
-import {YOUTUBE_VIDEOS_API} from '../../constant/constantData'
+import React, { useEffect, useState } from "react";
+import { YOUTUBE_VIDEOS_API } from "../../constant/constantData";
+import VideoCard from "./VideoCard";
+import LoaderShimmer from "../ShimmerUIBox/LoaderShimmer";
 
 const VideoContainer = () => {
-    
-    useEffect(() => {
-        getVideoData()
-    },[])
+  const [videoData, setVideoData] = useState([]);
 
-    const getVideoData = async () => {
-        const res = await fetch(YOUTUBE_VIDEOS_API);
-        const data = await res.json();
-        console.log(data);
-    }
-  return (
-    <div>VideoContainer</div>
-  )
-}
+  useEffect(() => {
+    getVideoData();
+  }, []);
 
-export default VideoContainer
+  const getVideoData = async () => {
+    const res = await fetch(YOUTUBE_VIDEOS_API);
+    const data = await res.json();
+    console.log(data.items);
+    setVideoData(data.items);
+  };
+  return videoData.length < 0 ? (
+    <LoaderShimmer />
+  ) : (
+    <div className="flex flex-wrap">
+      {videoData.map((video) => (
+        <VideoCard videoInfo={video} />
+      ))}
+    </div>
+  );
+};
+
+export default VideoContainer;

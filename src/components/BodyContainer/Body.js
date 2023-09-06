@@ -6,7 +6,7 @@ const Body = () => {
   const [sidebarCategary, setSidebarCategary] = useState("Home");
 
   return (
-    <div className="grid grid-flow-col mt-2 ">
+    <div className="grid grid-flow-col mt-2 gap-2 sm:gap-10">
       <Sidebar
         sidebarCategary={sidebarCategary}
         setSidebarCategary={setSidebarCategary}
