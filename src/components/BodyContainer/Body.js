@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import RightSide from "./RightSide";
+import { Outlet } from "react-router-dom";
 
 const Body = () => {
   const [sidebarCategary, setSidebarCategary] = useState("Home");
@@ -11,8 +11,7 @@ const Body = () => {
         sidebarCategary={sidebarCategary}
         setSidebarCategary={setSidebarCategary}
       />
-
-      <RightSide />
+      <Outlet />
     </div>
   );
 };

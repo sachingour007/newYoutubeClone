@@ -1,13 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const VideoCard = ({ videoInfo }) => {
-  console.log(videoInfo);
+  const isMenuOpen = useSelector( (store) => store.app.isSidebarOpen)
+  
   const { snippet, statistics } = videoInfo;
   const { thumbnails, title, channelTitle } = snippet;
   return (
-    <div className="w-72  ml-2 mr-1 mt-2">
+    <div className={` ml-2 mr-1 mt-2 ${ isMenuOpen ?`w-72` :`w-80`}`}>
       <div className="">
-        <img className="w-full rounded-lg" src={thumbnails?.medium?.url} alt="video" />
+        <img className="w-full rounded-lg" src={thumbnails?.maxres?.url} alt="video" />
       </div>
       <div className="flex gap-5 justify-center mt-1">
         
@@ -17,10 +19,10 @@ const VideoCard = ({ videoInfo }) => {
             alt=""
           />
     
-        <div className="">
-            <h2 className="text-sm font-medium">{title}</h2>
+        <div className="flex flex-col">
+            <h2 className="text-sm font-medium overflow-hidden text-ellipsis">{title}</h2>
             <h5 className="text-gray-500 text-xs">{channelTitle}</h5>
-            <h5 className="text-gray-500 text-xs"><span>{statistics.viewCount} views</span> * <span></span></h5>
+            <h5 className="text-gray-500 text-xs"><span>{statistics.viewCount} views</span> <span></span></h5>
         </div>
       </div>
     </div>

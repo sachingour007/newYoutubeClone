@@ -20,7 +20,7 @@ const Header = () => {
   };
   return (
     <header>
-      <div className="w-full h-14 flex gap-1">
+      <div className="w-full h-14 flex gap-1 ">
         <div className="flex items-center justify-start gap-1 sm:gap-5 sm:mx-10 md:mx-10 md:flex-0 cursor-pointer">
           <TableRowsRoundedIcon
             sx={{ color: "#383a3d" }}
