@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { toggalClosed } from "../../utility/Store/sidebarSlice";
+import { useDispatch } from "react-redux";
+import {useSearchParams} from 'react-router-dom'
 
 const WatchComponent = () => {
-  return (
-    <div>WatchComponent</div>
-  )
-}
+  const [searchParam] = useSearchParams();
+  console.log(searchParam.get("v"));
+  const dispatch = useDispatch();
 
-export default WatchComponent
+  useEffect(() => {
+    dispatch(toggalClosed());
+  }, []);
+  
+  return <div>WatchComponent</div>;
+};
+
+export default WatchComponent;

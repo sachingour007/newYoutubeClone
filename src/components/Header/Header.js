@@ -11,6 +11,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import imgLogo from "../../utility/Images/youtube-logo-png.webp";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../utility/Store/sidebarSlice";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,11 +27,14 @@ const Header = () => {
             sx={{ color: "#383a3d" }}
             onClick={() => toggleMenuHandler()}
           />
-          <img
-            className="w-14 sm:w-20  md:w-20 h-auto"
-            src={imgLogo}
-            alt="Logo"
-          />
+          <NavLink to={"/"}>
+            <img
+              className="w-14 sm:w-20  md:w-20 h-auto"
+              src={imgLogo}
+              alt="Logo"
+              onClick={() => toggleMenuHandler()}
+            />
+          </NavLink>
         </div>
 
         <div className=" flex items-center justify-center flex-1 gap-1 sm:gap-5  ">

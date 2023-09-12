@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 const VideoCard = ({ videoInfo }) => {
   const isMenuOpen = useSelector( (store) => store.app.isSidebarOpen)
   
+  
   const { snippet, statistics } = videoInfo;
   const { thumbnails, title, channelTitle } = snippet;
   return (

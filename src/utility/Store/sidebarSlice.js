@@ -9,8 +9,11 @@ const sidebarSlice = createSlice({
     toggleMenu: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
     },
+    toggalClosed: (state) => {
+      state.isSidebarOpen = false;
+    },
   },
 });
 
-export const { toggleMenu } = sidebarSlice.actions;
+export const { toggleMenu, toggalClosed } = sidebarSlice.actions;
 export default sidebarSlice.reducer;
