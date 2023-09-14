@@ -22,7 +22,7 @@ const VideoContainer = () => {
   ) : (
     <div className="flex flex-wrap">
       {videoData.map((video) => (
-        <NavLink to={`/watch?v=` + video.id}>
+        <NavLink key={video.id} to={`/watch?v=` + video.id}>
           <VideoCard videoInfo={video} key={video.id} />
         </NavLink>
       ))}
