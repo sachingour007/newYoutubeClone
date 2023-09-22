@@ -7,15 +7,21 @@ import MicOutlinedIcon from "@mui/icons-material/MicOutlined";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 import imgLogo from "../../utility/Images/youtube-logo-png.webp";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../../utility/Store/sidebarSlice";
-import { NavLink } from "react-router-dom";
+import { NavLink, json } from "react-router-dom";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestionArr, setSuggestionArr] = useState([]);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+
   const dispatch = useDispatch();
+  console.log(suggestionArr);
 
   useEffect(() => {
     const timer = setTimeout(() => getSerachData(), 200);
@@ -31,6 +37,7 @@ const Header = () => {
         searchQuery
     );
     const jsonData = await res.json();
+    setSuggestionArr(jsonData[1]);
     console.log(jsonData);
   };
 
@@ -39,7 +46,7 @@ const Header = () => {
   };
   return (
     <header>
-      <div className="w-full h-14 flex gap-1 ">
+      <div className="w-full h-14 flex gap-1 justify-center border ">
         <div className="flex items-center justify-start gap-1 sm:gap-5 sm:mx-10 md:mx-10 md:flex-0 cursor-pointer">
           <TableRowsRoundedIcon
             sx={{ color: "#383a3d" }}
@@ -55,24 +62,43 @@ const Header = () => {
           </NavLink>
         </div>
 
-        <div className=" flex items-center justify-center flex-1 gap-1 sm:gap-5  ">
-          <div className="flex items-center border-[#C6C6C6] border sm:w-full md:w-3/5 rounded-l-full rounded-r-full bg-[#f3f3f3]">
-            <input
-              className=" w-full sm:w-full h-7 pl-2 sm:h-9 rounded-l-full"
-              type="text"
-              name=""
-              id=""
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <div className="px-1 sm:px-4 border-l cursor-pointer">
-              <SearchOutlinedIcon sx={{ color: "#383a3d" }} />
-            </div>
-          </div>
+        <div className=" flex  items-center justify-center flex-1 gap-1 sm:gap-5">
+          <div>
+            <div className="flex justify-end items-center border-[#C6C6C6] border w-full sm:w-full md:w-full lg:w-[500px] rounded-l-full rounded-r-full bg-[#f3f3f3]">
+              <input
+                className="w-full sm:w-full h-7 pl-2 sm:h-9 rounded-l-full outline-0"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setShowSuggestion(true)}
+                onBlur={() => setShowSuggestion(false)}
+              />
 
-          <div className="hidden sm:block md:block border rounded-full p-1 bg-[#f3f3f3] cursor-pointer">
-            <MicOutlinedIcon />
+              <div className="px-1 sm:px-4 border-l cursor-pointer">
+                <SearchOutlinedIcon sx={{ color: "#383a3d" }} />
+              </div>
+            </div>
+            {showSuggestion ? (
+              <div className=" ml-2 absolute w-44 lg:w-[430px] bg-white border-gray-500 rounded-lg px-2 mt-1">
+                <ul>
+                  {suggestionArr.map((suggestion) => (
+                    <li className="my-2">
+                      {" "}
+                      <SearchOutlinedIcon
+                        sx={{ color: "#afaf83", fontSize: "large" }}
+                      />{" "}
+                      <span className="ml-1">{suggestion}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              " "
+            )}
           </div>
+          {/* <div className="hidden sm:block md:block border rounded-full p-1 bg-[#f3f3f3] cursor-pointer">
+            <MicOutlinedIcon />
+          </div> */}
         </div>
 
         <div className=" flex justify-end items-center gap-1 sm:gap-5 mr-2 sm:mx-10 flex-0 ">
