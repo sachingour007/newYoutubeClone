@@ -11,20 +11,28 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
 import imgLogo from "../../utility/Images/youtube-logo-png.webp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../utility/Store/sidebarSlice";
 import { NavLink, json } from "react-router-dom";
+import { cacheResult } from "../../utility/Store/searchSlice";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestionArr, setSuggestionArr] = useState([]);
   const [showSuggestion, setShowSuggestion] = useState(false);
+  const cacheSelector = useSelector((store) => store.serach);
 
   const dispatch = useDispatch();
   console.log(suggestionArr);
 
   useEffect(() => {
-    const timer = setTimeout(() => getSerachData(), 200);
+    const timer = setTimeout(() => {
+      if (cacheSelector[searchQuery]) {
+        setSuggestionArr(cacheSelector[searchQuery]);
+      } else {
+        getSerachData();
+      }
+    }, 200);
 
     return () => {
       clearTimeout(timer);
@@ -38,7 +46,12 @@ const Header = () => {
     );
     const jsonData = await res.json();
     setSuggestionArr(jsonData[1]);
-    console.log(jsonData);
+    dispatch(
+      cacheResult({
+        [searchQuery]: jsonData[1],
+      })
+    );
+    // console.log(jsonData);
   };
 
   const toggleMenuHandler = () => {
@@ -82,7 +95,7 @@ const Header = () => {
               <div className=" ml-2 absolute w-44 lg:w-[430px] bg-white border-gray-500 rounded-lg px-2 mt-1">
                 <ul>
                   {suggestionArr.map((suggestion) => (
-                    <li className="my-2">
+                    <li className="my-2 cursor-pointer">
                       {" "}
                       <SearchOutlinedIcon
                         sx={{ color: "#afaf83", fontSize: "large" }}
