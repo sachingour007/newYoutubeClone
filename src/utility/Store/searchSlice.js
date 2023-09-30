@@ -1,4 +1,4 @@
-import { autoBatchEnhancer, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const serachSlice = createSlice({
   name: "search",
