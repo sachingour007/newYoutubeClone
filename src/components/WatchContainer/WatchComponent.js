@@ -3,6 +3,7 @@ import { toggalClosed } from "../../utility/Store/sidebarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import ReactPlayer from "react-player";
+import SuggestionComponent from "./SuggestionComponent";
 
 const WatchComponent = () => {
   const [searchParam] = useSearchParams();
@@ -38,8 +39,8 @@ const WatchComponent = () => {
           <h2>comment</h2>
         </div>
       </div>
-      <div className="bg-blue-100 md:w-1/3 md:mx-2">
-        <h2>Side Video Part</h2>
+      <div className="mt-2 md:w-1/3 md:mx-2">
+        <SuggestionComponent />
       </div>
     </div>
   );
